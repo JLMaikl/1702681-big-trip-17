@@ -1,6 +1,9 @@
 import { createElement } from '../render';
 
-const createTripMainInfoTemplate = () => (`
+const createTripMainInfoTemplate = (task) => {
+  const {} = task;
+
+  return (`
     <section class="trip-main__trip-info  trip-info">
       <div class="trip-info__main">
         <h1 class="trip-info__title">Amsterdam &mdash; Chamonix &mdash; Geneva</h1>
@@ -12,11 +15,15 @@ const createTripMainInfoTemplate = () => (`
         Total: &euro;&nbsp;<span class="trip-info__cost-value">1230</span>
       </p>
     </section>
-  `);
+  `);};
 
 export default class TripMainInfoView {
+  constructor(task) {
+    this.task = task;
+  }
+
   getTemplate() {
-    return createTripMainInfoTemplate();
+    return createTripMainInfoTemplate(this.task);
   }
 
   getElement() {
