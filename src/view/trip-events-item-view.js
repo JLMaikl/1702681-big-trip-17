@@ -3,6 +3,7 @@ import { createElement } from '../render';
 
 
 const createTripEventsItemTemplate = (point) => {
+
   const {basePrice, dateFrom, dateTo, destination, isFavorite, additionalOffer, type} = point;
   let offersMarkup = '';
   const HOURS_IN_DAY = 24;
@@ -70,12 +71,12 @@ const createTripEventsItemTemplate = (point) => {
 };
 
 export default class TripEventsItemView {
-  constructor(task) {
-    this.task = task;
+  constructor(point) {
+    this.point = point;
   }
 
   getTemplate() {
-    return createTripEventsItemTemplate(this.task);
+    return createTripEventsItemTemplate(this.point);
   }
 
   getElement() {
