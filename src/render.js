@@ -15,6 +15,7 @@ const createElement = (template) => {
 const render = (component, container, place = RenderPosition.BEFOREEND) => {
   const element = component.getElement();
 
+
   switch (place) {
     case RenderPosition.BEFOREBEGIN:
       container.before(element);

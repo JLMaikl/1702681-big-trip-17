@@ -352,4 +352,21 @@ export default class TripEventsListView {
   removeElement() {
     this.element = null;
   }
+  // #element = null;
+
+  // get template() {
+  //   return createEventsListTemplate();
+  // }
+
+  // get element() {
+  //   if (!this.element) {
+  //     this.#element = createElement(this.template);
+  //   }
+
+  //   return this.#element;
+  // }
+
+  // removeElement() {
+  //   this.#element = null;
+  // }
 }
