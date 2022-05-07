@@ -145,26 +145,5 @@ export default class AddNewPointView {
   removeElement() {
     this.element = null;
   }
-  // #element = null;
-  // #event = null;
 
-  // constructor(event = {}) {
-  //   this.#event = event;
-  // }
-
-  // get template() {
-  //   return createAddNewPointTemplate(this.#event);
-  // }
-
-  // get element() {
-  //   if (!this.element) {
-  //     this.#element = createElement(this.template);
-  //   }
-
-  //   return this.#element;
-  // }
-
-  // removeElement() {
-  //   this.#element = null;
-  // }
 }
