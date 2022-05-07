@@ -17,4 +17,5 @@ export default class TripEventsListView {
   removeElement() {
     this.element = null;
   }
+
 }

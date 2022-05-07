@@ -18,4 +18,5 @@ export default class LoadingView {
   removeElement() {
     this.element = null;
   }
+
 }

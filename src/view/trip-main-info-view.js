@@ -45,4 +45,5 @@ export default class TripMainInfoView {
   removeElement() {
     this.element = null;
   }
+
 }

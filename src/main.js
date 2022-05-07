@@ -2,20 +2,13 @@ import TripMainInfoView from './view/trip-main-info-view';
 import TripFiltersView from './view/trip-filters-view';
 import { render } from './render';
 import BoardPresenter from './presenter/board-presenter';
-// import { generatePoint, DESTINATION_COUNT } from './mock/task';
 import { points } from './model/points-model';
+
 
 const siteMainElement = document.querySelector('.page-body');
 const siteTripMainInfoElement = siteMainElement.querySelector('.trip-main');
 const siteFiltersElement = siteMainElement.querySelector('.trip-controls__filters');
 const siteSortElement = siteMainElement.querySelector('.trip-events');
-
-// const POINTS_COUNT = 3;
-
-// const points = [...Array(POINTS_COUNT)].map((it, index) => {
-//   const destinationId = index % DESTINATION_COUNT;
-//   return generatePoint(index + 1, destinationId);
-// });
 
 
 const createTripInfoData = (items) => {
