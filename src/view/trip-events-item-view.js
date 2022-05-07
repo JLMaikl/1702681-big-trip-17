@@ -89,26 +89,7 @@ export default class TripEventsItemView {
   removeElement() {
     this.element = null;
   }
-  // #element = null;
-  // #event = null;
 
-  // constructor(event = {}) {
-  //   this.#event = event;
-  // }
 
-  // get template() {
-  //   return createTripEventsItemTemplate(this.#event);
-  // }
-
-  // get element() {
-  //   if (!this.element) {
-  //     this.#element = createElement(this.template);
-  //   }
-
-  //   return this.#element;
-  // }
-
-  // removeElement() {
-  //   this.#element = null;
-  // }
 }
+

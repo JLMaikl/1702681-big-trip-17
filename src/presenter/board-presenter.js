@@ -44,7 +44,7 @@ export default class BoardPresenter {
     };
 
 
-    newPointComponent.getElement().querySelector('form').addEventListener('click', (evt) => {
+    newPointComponent.getElement().querySelector('.event__save-btn').addEventListener('click', (evt) => {
       evt.preventDefault();
       replaceFormToPoint();
       document.removeEventListener('keydown', onEscKeyDown);
@@ -55,6 +55,6 @@ export default class BoardPresenter {
       document.addEventListener('keydown', onEscKeyDown);
     });
 
-    render(newPointComponent, this.tripEventsListComponent.getElement());
+    render(pointComponent, this.tripEventsListComponent.getElement());
   };
 }
