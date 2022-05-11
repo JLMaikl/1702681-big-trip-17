@@ -16,7 +16,7 @@ export default class BoardPresenter {
     render(this.tripSortViewComponent, this.boardContainer);
     render(this.tripEventsListComponent, this.boardContainer);
 
-    if (!points) {
+    if (!points.length) {
       render(new NoPointView(), this.tripEventsListComponent.getElement());
     } else {
 
