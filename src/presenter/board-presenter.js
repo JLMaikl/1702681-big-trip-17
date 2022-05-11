@@ -2,6 +2,7 @@ import TripEventsItemView from '../view/trip-events-item-view';
 import TripEventsListView from '../view/trip-events-list-view';
 import TripSortView from '../view/trip-sort-view';
 import AddNewPointView from '../view/add-new-point-view';
+import NoPointView from '../view/no-point-view';
 import { render } from '../render.js';
 
 export default class BoardPresenter {
@@ -15,12 +16,14 @@ export default class BoardPresenter {
     render(this.tripSortViewComponent, this.boardContainer);
     render(this.tripEventsListComponent, this.boardContainer);
 
+    if (!points.length) {
+      render(new NoPointView(), this.tripEventsListComponent.getElement());
+    } else {
 
-    points.map((point) => {
-      this.#renderNewPoint(point);
+      points.map((point) => {
+        this.#renderNewPoint(point);
+      });
     }
-
-    );
   };
 
   #renderNewPoint = (point) => {
@@ -28,11 +31,21 @@ export default class BoardPresenter {
     const pointComponent = new TripEventsItemView(point);
 
     const replacePointToForm = () => {
-      this.tripEventsListComponent.getElement().replaceChild(newPointComponent.getElement(), pointComponent.getElement());
+      this.tripEventsListComponent
+        .getElement()
+        .replaceChild(
+          newPointComponent.getElement(),
+          pointComponent.getElement()
+        );
     };
 
     const replaceFormToPoint = () => {
-      this.tripEventsListComponent.getElement().replaceChild(pointComponent.getElement(), newPointComponent.getElement());
+      this.tripEventsListComponent
+        .getElement()
+        .replaceChild(
+          pointComponent.getElement(),
+          newPointComponent.getElement()
+        );
     };
 
     const onEscKeyDown = (evt) => {
@@ -43,18 +56,28 @@ export default class BoardPresenter {
       }
     };
 
+    newPointComponent
+      .getElement()
+      .querySelector('.event__save-btn')
+      .addEventListener('click', (evt) => {
+        evt.preventDefault();
+        replaceFormToPoint();
+        document.removeEventListener('keydown', onEscKeyDown);
+      });
 
-    newPointComponent.getElement().querySelector('.event__save-btn').addEventListener('click', (evt) => {
-      evt.preventDefault();
-      replaceFormToPoint();
-      document.removeEventListener('keydown', onEscKeyDown);
-    });
+    pointComponent
+      .getElement()
+      .querySelector('.event__rollup-btn')
+      .addEventListener('click', () => {
+        replacePointToForm();
+        document.addEventListener('keydown', onEscKeyDown);
+      });
 
-    pointComponent.getElement().querySelector('.event__rollup-btn').addEventListener('click', () => {
-      replacePointToForm();
-      document.addEventListener('keydown', onEscKeyDown);
-    });
 
-    render(pointComponent, this.tripEventsListComponent.getElement());
+    if (!point) {
+      render(new NoPointView(), this.tripEventsListComponent.getElement());
+    } else {      render(pointComponent, this.tripEventsListComponent.getElement());
+
+    }
   };
 }
