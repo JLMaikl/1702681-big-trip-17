@@ -17,7 +17,7 @@ export default class BoardPresenter {
     render(this.tripEventsListComponent, this.boardContainer);
 
     if (!points.length) {
-      render(new NoPointView(), this.tripEventsListComponent.getElement());
+      render(new NoPointView(), this.tripEventsListComponent.element);
     } else {
 
       points.map((point) => {
@@ -31,21 +31,11 @@ export default class BoardPresenter {
     const pointComponent = new TripEventsItemView(point);
 
     const replacePointToForm = () => {
-      this.tripEventsListComponent
-        .getElement()
-        .replaceChild(
-          newPointComponent.getElement(),
-          pointComponent.getElement()
-        );
+      this.tripEventsListComponent.element.replaceChild(newPointComponent.getElement(), pointComponent.getElement());
     };
 
     const replaceFormToPoint = () => {
-      this.tripEventsListComponent
-        .getElement()
-        .replaceChild(
-          pointComponent.getElement(),
-          newPointComponent.getElement()
-        );
+      this.tripEventsListComponent.element.replaceChild(pointComponent.getElement(), newPointComponent.getElement());
     };
 
     const onEscKeyDown = (evt) => {
@@ -56,27 +46,21 @@ export default class BoardPresenter {
       }
     };
 
-    newPointComponent
-      .getElement()
-      .querySelector('.event__save-btn')
-      .addEventListener('click', (evt) => {
-        evt.preventDefault();
-        replaceFormToPoint();
-        document.removeEventListener('keydown', onEscKeyDown);
-      });
+    newPointComponent.element.querySelector('.event__save-btn').addEventListener('click', (evt) => {
+      evt.preventDefault();
+      replaceFormToPoint();
+      document.removeEventListener('keydown', onEscKeyDown);
+    });
 
-    pointComponent
-      .getElement()
-      .querySelector('.event__rollup-btn')
-      .addEventListener('click', () => {
-        replacePointToForm();
-        document.addEventListener('keydown', onEscKeyDown);
-      });
+    pointComponent.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
+      replacePointToForm();
+      document.addEventListener('keydown', onEscKeyDown);
+    });
 
 
     if (!point) {
-      render(new NoPointView(), this.tripEventsListComponent.getElement());
-    } else {      render(pointComponent, this.tripEventsListComponent.getElement());
+      render(new NoPointView(), this.tripEventsListComponent.element);
+    } else {      render(pointComponent, this.tripEventsListComponent.element);
 
     }
   };

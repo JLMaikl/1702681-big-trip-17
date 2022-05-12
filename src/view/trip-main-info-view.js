@@ -27,23 +27,26 @@ const createTripMainInfoTemplate = ( point ) => {
   `);};
 
 export default class TripMainInfoView {
+  #element = null;
+  #task = null;
+
   constructor(task) {
-    this.task = task;
+    this.#task = task;
   }
 
-  getTemplate() {
-    return createTripMainInfoTemplate(this.task);
+  get template() {
+    return createTripMainInfoTemplate(this.#task);
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
     }
-    return this.element;
+    return this.#element;
   }
 
   removeElement() {
-    this.element = null;
+    this.#element = null;
   }
 
 }

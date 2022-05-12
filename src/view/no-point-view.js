@@ -4,23 +4,26 @@ const createNoEventsTemplate = () => '<p class="trip-events__msg">Click New Even
 
 
 export default class NoPointView {
+  #filterName = null;
+  #element = null;
+
   constructor(filterName) {
-    this.filterName = filterName;
+    this.#filterName = filterName;
   }
 
-  getTemplate() {
-    return createNoEventsTemplate(this.filterName);
+  get template() {
+    return createNoEventsTemplate(this.#filterName);
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
     }
-    return this.element;
+    return this.#element;
   }
 
   removeElement() {
-    this.element = null;
+    this.#element = null;
   }
 
 }
