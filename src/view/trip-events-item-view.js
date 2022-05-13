@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { createElement } from '../render';
+import AbstractView from '../framework/view/abstract-view.js';
 
 
 const createTripEventsItemTemplate = (point) => {
@@ -70,11 +70,11 @@ const createTripEventsItemTemplate = (point) => {
   </li>`;
 };
 
-export default class TripEventsItemView {
-  #element = null;
+export default class TripEventsItemView extends AbstractView {
   #point = null;
 
   constructor(point) {
+    super();
     this.#point = point;
   }
 
@@ -82,16 +82,11 @@ export default class TripEventsItemView {
     return createTripEventsItemTemplate(this.#point);
   }
 
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
-  }
-
-  removeElement() {
-    this.#element = null;
-  }
-
+  setEditClickHandler = (callback) => {
+    this._callback.editClick = callback;
+    this.element
+      .querySelector('.event__rollup-btn')
+      .addEventListener('click', this._callback.editClick);
+  };
 }
 

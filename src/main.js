@@ -1,6 +1,7 @@
 import TripMainInfoView from './view/trip-main-info-view';
 import TripFiltersView from './view/trip-filters-view';
-import { render } from './render';
+// import { render } from './render';
+import { render } from './framework/render';
 import BoardPresenter from './presenter/board-presenter';
 import { points } from './model/points-model';
 

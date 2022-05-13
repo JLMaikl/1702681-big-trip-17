@@ -1,9 +1,10 @@
+import { render, replace } from '../framework/render.js';
 import TripEventsItemView from '../view/trip-events-item-view';
 import TripEventsListView from '../view/trip-events-list-view';
 import TripSortView from '../view/trip-sort-view';
 import AddNewPointView from '../view/add-new-point-view';
 import NoPointView from '../view/no-point-view';
-import { render } from '../render.js';
+
 
 export default class BoardPresenter {
   tripSortViewComponent = new TripSortView();
@@ -31,11 +32,11 @@ export default class BoardPresenter {
     const pointComponent = new TripEventsItemView(point);
 
     const replacePointToForm = () => {
-      this.tripEventsListComponent.element.replaceChild(newPointComponent.getElement(), pointComponent.getElement());
+      replace(newPointComponent, pointComponent);
     };
 
     const replaceFormToPoint = () => {
-      this.tripEventsListComponent.element.replaceChild(pointComponent.getElement(), newPointComponent.getElement());
+      replace(pointComponent, newPointComponent);
     };
 
     const onEscKeyDown = (evt) => {
@@ -46,13 +47,17 @@ export default class BoardPresenter {
       }
     };
 
-    newPointComponent.element.querySelector('.event__save-btn').addEventListener('click', (evt) => {
-      evt.preventDefault();
+    newPointComponent.setClickHandler(() => {
       replaceFormToPoint();
       document.removeEventListener('keydown', onEscKeyDown);
     });
 
-    pointComponent.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
+    newPointComponent.setFormSubmitHandler(() => {
+      replaceFormToPoint();
+      document.removeEventListener('keydown', onEscKeyDown);
+    });
+
+    pointComponent.setEditClickHandler(() => {
       replacePointToForm();
       document.addEventListener('keydown', onEscKeyDown);
     });
