@@ -1,4 +1,4 @@
-import { createElement } from '../render';
+import AbstractView from '../framework/view/abstract-view.js';
 import dayjs from 'dayjs';
 
 const generateEventPeriod = (startDate, endDate) => {
@@ -26,24 +26,15 @@ const createTripMainInfoTemplate = ( point ) => {
     </section>
   `);};
 
-export default class TripMainInfoView {
+export default class TripMainInfoView extends AbstractView {
+  #task = null;
+
   constructor(task) {
-    this.task = task;
+    super();
+    this.#task = task;
   }
 
-  getTemplate() {
-    return createTripMainInfoTemplate(this.task);
+  get template() {
+    return createTripMainInfoTemplate(this.#task);
   }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
-  }
-
 }
