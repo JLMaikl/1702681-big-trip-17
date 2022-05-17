@@ -1,6 +1,6 @@
 import TripMainInfoView from './view/trip-main-info-view';
 import TripFiltersView from './view/trip-filters-view';
-// import { render } from './render';
+import { generateFilter } from './mock/filter';
 import { render } from './framework/render';
 import BoardPresenter from './presenter/board-presenter';
 import { points } from './model/points-model';
@@ -55,9 +55,10 @@ const createTripInfoData = (items) => {
 
 const boardPresenter = new BoardPresenter();
 
+const filters = generateFilter(points);
 
 render(new TripMainInfoView(createTripInfoData(points)), siteTripMainInfoElement, 'afterbegin');
-render(new TripFiltersView(), siteFiltersElement);
+render(new TripFiltersView(filters), siteFiltersElement);
 
 boardPresenter.init(siteSortElement, points);
 
