@@ -9,6 +9,8 @@ export default class BoardPresenter {
   #tripSortViewComponent = new TripSortView();
   #tripEventsListComponent = new TripEventsListView();
 
+  #pointPresenter = new Map();
+
   #renderSortView = () => {
     render(this.#tripSortViewComponent, this.boardContainer);
   };
@@ -19,6 +21,11 @@ export default class BoardPresenter {
 
   #renderNoPointView = () => {
     render(new NoPointView(), this.#tripEventsListComponent.element);
+  };
+
+  #clearEventsList = () => {
+    this.#pointPresenter.forEach((presenter) => presenter.destroy());
+    this.#pointPresenter.clear();
   };
 
   init = (boardContainer, points) => {
@@ -38,13 +45,14 @@ export default class BoardPresenter {
   };
 
   #renderNewPoint = (point) => {
-
     if (!point) {
       this.#renderNoPointView();
     } else {
-      const pointPresenter = new PointPresenter(this.#tripEventsListComponent.element);
+      const pointPresenter = new PointPresenter(
+        this.#tripEventsListComponent.element
+      );
       pointPresenter.init(point);
+      this.#pointPresenter.set(point.id, pointPresenter);
     }
-
   };
 }
