@@ -1,9 +1,9 @@
-import {render, replace} from '../framework/render.js';
+import {remove, render, replace} from '../framework/render.js';
 import AddNewPointView from '../view/add-new-point-view';
 import TripEventsItemView from '../view/trip-events-item-view';
 
 export default class PointPresenter {
-  #newPointComponent = null;
+  #editPointComponent = null;
   #pointComponent = null;
   #taskListContainer = null;
 
@@ -16,14 +16,36 @@ export default class PointPresenter {
   init = (point) => {
     this.#point = point;
 
-    this.#newPointComponent = new AddNewPointView(point);
+    const prevEditPointComponent = this.#editPointComponent;
+    const prevPointComponent = this.#pointComponent;
+
+    this.#editPointComponent = new AddNewPointView(point);
     this.#pointComponent = new TripEventsItemView(point);
 
-    this.#newPointComponent.setClickHandler(this.#handleFormToPoint);
-    this.#newPointComponent.setFormSubmitHandler(this.#handleFormSubmit);
+    this.#editPointComponent.setClickHandler(this.#handleFormToPoint);
+    this.#editPointComponent.setFormSubmitHandler(this.#handleFormSubmit);
     this.#pointComponent.setEditClickHandler(this.#hadlePointToForm);
 
-    render(this.#pointComponent, this.#taskListContainer);
+    if (prevPointComponent === null || prevEditPointComponent === null) {
+      render(this.#pointComponent, this.#taskListContainer);
+      return;
+    }
+
+    if (this.#taskListContainer.contains(prevPointComponent.element )) {
+      replace(this.#pointComponent, prevPointComponent);
+    }
+
+    if (this.#taskListContainer.contains(prevEditPointComponent.element)) {
+      replace(this.#editPointComponent, prevEditPointComponent);
+    }
+
+    remove(prevPointComponent);
+    remove(prevEditPointComponent);
+  };
+
+  destroy = () => {
+    remove(this.#pointComponent);
+    remove(this.#editPointComponent);
   };
 
   #onEscKeyDown = (evt) => {
@@ -37,7 +59,7 @@ export default class PointPresenter {
   //FormToPoint
 
   #replaceFormToPoint = () => {
-    replace(this.#pointComponent, this.#newPointComponent);
+    replace(this.#pointComponent, this.#editPointComponent);
   };
 
   #replaceFormToPointClick = () => {
@@ -61,7 +83,7 @@ export default class PointPresenter {
   // PointToForm
 
   #replacePointToForm = () => {
-    replace(this.#newPointComponent, this.#pointComponent);
+    replace(this.#editPointComponent, this.#pointComponent);
   };
 
   #replacePointToFormClick = () => {
