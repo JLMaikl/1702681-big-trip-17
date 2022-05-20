@@ -3,11 +3,14 @@ import TripEventsListView from '../view/trip-events-list-view';
 import TripSortView from '../view/trip-sort-view';
 import NoPointView from '../view/no-point-view';
 import PointPresenter from './point-presenter.js';
+import { updateItem } from '../utils/common.js';
 
 
 export default class BoardPresenter {
   #tripSortViewComponent = new TripSortView();
   #tripEventsListComponent = new TripEventsListView();
+
+  #points = [];
 
   #pointPresenter = new Map();
 
@@ -23,9 +26,18 @@ export default class BoardPresenter {
     render(new NoPointView(), this.#tripEventsListComponent.element);
   };
 
+  #onPointChange = (updatedPoint) => {
+    this.#points = updateItem(this.#points, updatedPoint);
+    this.#pointPresenter.get(updatedPoint.id).init(updatedPoint);
+  };
+
   #clearEventsList = () => {
     this.#pointPresenter.forEach((presenter) => presenter.destroy());
     this.#pointPresenter.clear();
+  };
+
+  #handleModeChange = () => {
+    this.#pointPresenter.forEach((presenter) => presenter.resetView());
   };
 
   init = (boardContainer, points) => {
@@ -48,9 +60,7 @@ export default class BoardPresenter {
     if (!point) {
       this.#renderNoPointView();
     } else {
-      const pointPresenter = new PointPresenter(
-        this.#tripEventsListComponent.element
-      );
+      const pointPresenter = new PointPresenter(this.#tripEventsListComponent.element, this.#onPointChange, this.#handleModeChange);
       pointPresenter.init(point);
       this.#pointPresenter.set(point.id, pointPresenter);
     }
