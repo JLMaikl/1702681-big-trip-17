@@ -5,7 +5,7 @@ import TripEventsItemView from '../view/trip-events-item-view';
 const Mode = {
   DEFAULT: 'DEFAULT',
   EDITING: 'EDITING',
-}
+};
 
 export default class PointPresenter {
   #editPointComponent = null;
