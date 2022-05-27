@@ -29,8 +29,8 @@ export default class PointPresenter {
     const prevEditPointComponent = this.#editPointComponent;
     const prevPointComponent = this.#pointComponent;
 
-    this.#editPointComponent = new AddNewPointView(point);
-    this.#pointComponent = new TripEventsItemView(point);
+    this.#pointComponent = new TripEventsItemView(this.#point);
+    this.#editPointComponent = new AddNewPointView(this.#point);
 
     this.#editPointComponent.setClickHandler(this.#handleFormToPoint);
     this.#editPointComponent.setFormSubmitHandler(this.#handleFormSubmit);
